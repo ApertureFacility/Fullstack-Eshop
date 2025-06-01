@@ -12,13 +12,13 @@ const Cart = sequelize.define('cart', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
 })
 
-const CartItem = sequelize.define('cart_device', {
+const CartItem = sequelize.define('cart_Item', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     quantity: {type: DataTypes.INTEGER,allowNull: false,defaultValue: 1,validate: {min: 1}}
       
 })
 
-const Device = sequelize.define('device', {
+const Item = sequelize.define('Item', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
     price: {type: DataTypes.INTEGER, allowNull: false},
@@ -43,7 +43,7 @@ const Rating = sequelize.define('rating', {
     rate: {type: DataTypes.INTEGER,allowNull: false,validate: {min: 1,max: 5}}
 })
 
-const ItemInfo = sequelize.define('device_info', {
+const ItemInfo = sequelize.define('Item_info', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     title: {type: DataTypes.STRING, allowNull: false},
     description: {type: DataTypes.STRING, allowNull: false},
@@ -60,23 +60,23 @@ Cart.belongsTo(User)
 User.hasMany(Rating)
 Rating.belongsTo(User)
 
-Cart.hasMany(CartDevice)
-CartDevice.belongsTo(Cart)
+Cart.hasMany(CartItem)
+CartItem.belongsTo(Cart)
 
-Type.hasMany(Device)
-Device.belongsTo(Type)
+Type.hasMany(Item)
+Item.belongsTo(Type)
 
-Brand.hasMany(Device)
-Device.belongsTo(Brand)
+Brand.hasMany(Item)
+Item.belongsTo(Brand)
 
-Device.hasMany(Rating)
-Rating.belongsTo(Device)
+Item.hasMany(Rating)
+Rating.belongsTo(Item)
 
-Device.hasMany(CartDevice)
-CartDevice.belongsTo(Device)
+Item.hasMany(CartItem)
+CartItem.belongsTo(Item)
 
-Device.hasMany(DeviceInfo, {as: 'info'});
-DeviceInfo.belongsTo(Device)
+Item.hasMany(ItemInfo, {as: 'info'});
+ItemInfo.belongsTo(Item)
 
 Type.belongsToMany(Brand, {through: TypeBrand })
 Brand.belongsToMany(Type, {through: TypeBrand })
@@ -84,13 +84,13 @@ Brand.belongsToMany(Type, {through: TypeBrand })
 module.exports = {
     User,
     Cart,
-    CartDevice,
-    Device,
+    CartItem,
+    Item,
     Type,
     Brand,
     Rating,
     TypeBrand,
-    DeviceInfo
+    ItemInfo
 }
 
 
