@@ -3,7 +3,7 @@ const {DataTypes} = require('sequelize')
 
 const User = sequelize.define('user', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    email: {type: DataTypes.STRING, unique: true,},
+    email: {type: DataTypes.STRING,unique: true,allowNull: false,validate: {isEmail: true}},      
     password: {type: DataTypes.STRING},
     role: {type: DataTypes.STRING, defaultValue: "USER"},
 })
@@ -12,8 +12,10 @@ const Cart = sequelize.define('cart', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
 })
 
-const CartDevice = sequelize.define('cart_device', {
+const CartItem = sequelize.define('cart_device', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    quantity: {type: DataTypes.INTEGER,allowNull: false,defaultValue: 1,validate: {min: 1}}
+      
 })
 
 const Device = sequelize.define('device', {
@@ -22,6 +24,8 @@ const Device = sequelize.define('device', {
     price: {type: DataTypes.INTEGER, allowNull: false},
     rating: {type: DataTypes.INTEGER, defaultValue: 0},
     img: {type: DataTypes.STRING, allowNull: false},
+    stock_quantity: {type: DataTypes.INTEGER,allowNull: false,defaultValue: 0,validate: {min: 0}},
+    discount_price: {type: DataTypes.DECIMAL(10, 2),allowNull: true,validate: {min: 0}}
 })
 
 const Type = sequelize.define('type', {
@@ -36,10 +40,10 @@ const Brand = sequelize.define('brand', {
 
 const Rating = sequelize.define('rating', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    rate: {type: DataTypes.INTEGER, allowNull: false},
+    rate: {type: DataTypes.INTEGER,allowNull: false,validate: {min: 1,max: 5}}
 })
 
-const DeviceInfo = sequelize.define('device_info', {
+const ItemInfo = sequelize.define('device_info', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     title: {type: DataTypes.STRING, allowNull: false},
     description: {type: DataTypes.STRING, allowNull: false},
