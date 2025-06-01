@@ -1,16 +1,12 @@
-const { Router } = require('express');
-const router = Router();
+const {Router} = require('express')
+const brandController = require('../controllers/brandController')
+const router = Router()
 
-router.post('/', (req, res) => {
-  res.json({ message: 'Create brand' });
-});
 
-router.get('/', (req, res) => {
-  res.json({ message: 'Get brands' });
-});
+router.post('/',brandController.create)
+router.get('/',brandController.getAll)
+router.get('/:id',brandController.getOne)
+router.put('/:id',brandController.update)
+router.delete('/:id', brandController.delete)
 
-router.delete('/', (req, res) => {
-  res.json({ message: 'Delete brand' });
-});
-
-module.exports = router;
+module.exports = router

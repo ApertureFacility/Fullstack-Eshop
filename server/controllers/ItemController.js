@@ -1,4 +1,4 @@
-class DeviceController{
+class ItemController{
     async registration(req,res){
 
     }
@@ -10,4 +10,4 @@ class DeviceController{
     }
 }
 
-module.exports=new DeviceController()
+module.exports=new ItemController()
