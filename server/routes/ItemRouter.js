@@ -1,11 +1,27 @@
-const {Router} = require('express')
-const productController = require('../controllers/ProductController')
-const router = Router()
+const { Router } = require('express');
+const multer = require('multer');
+const path = require('path');
+const uuid = require('uuid');
+const itemController = require('../controllers/ItemController');
+const router = Router();
 
-router.post('/', productController.create)
-router.get('/', productController.getAll)
-router.get('/:id', productController.getOne)
-router.put('/:id', productController.update)
-router.delete('/:id', productController.delete)
 
-module.exports = router
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.resolve(__dirname, '..', 'static')); 
+  },
+  filename: (req, file, cb) => {
+    cb(null, uuid.v4() + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({ storage });
+
+
+router.post('/', upload.single('img'), itemController.create);
+router.get('/', itemController.getAll);
+router.get('/:id', itemController.getOne);
+router.put('/:id', itemController.update);
+router.delete('/:id', itemController.delete);
+
+module.exports = router;
