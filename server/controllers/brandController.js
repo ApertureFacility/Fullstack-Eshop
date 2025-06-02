@@ -1,5 +1,5 @@
 const {Brand} = require('../models/models')
-const ApiError = require('../error/ApiError')
+const ApiError = require('../api/apiError')
 
 class BrandController {
     async create(req, res, next) {
@@ -37,6 +37,36 @@ class BrandController {
             return next(ApiError.internal(e.message))
         }
     }
+
+async getOne(req, res, next) {
+    try {
+        const {id} = req.params
+        const brand = await Brand.findByPk(id)
+        if (!brand) {
+            return next(ApiError.notFound('Brand not found'))
+        }
+        return res.json(brand)
+    } catch (e) {
+        return next(ApiError.internal(e.message))
+    }
+}
+
+async update(req, res, next) {
+    try {
+        const {id} = req.params
+        const {name} = req.body
+        
+        const brand = await Brand.findByPk(id)
+        if (!brand) {
+            return next(ApiError.notFound('Brand not found'))
+        }
+        
+        await brand.update({name})
+        return res.json(brand)
+    } catch (e) {
+        return next(ApiError.internal(e.message))
+    }
+}
 }
 
 module.exports = new BrandController()
