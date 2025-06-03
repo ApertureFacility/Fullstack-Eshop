@@ -3,6 +3,7 @@ const multer = require('multer');
 const path = require('path');
 const uuid = require('uuid');
 const itemController = require('../controllers/ItemController');
+const checkRole = require('../api/middleware/UserRoleMiddleware');
 const router = Router();
 
 
@@ -18,10 +19,10 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 
-router.post('/', upload.single('img'), itemController.create);
+router.post('/', checkRole('ADMIN'), upload.single('img'), itemController.create);
 router.get('/', itemController.getAll);
 router.get('/:id', itemController.getOne);
-router.put('/:id', itemController.update);
-router.delete('/:id', itemController.delete);
+router.put('/:id', checkRole('ADMIN'), itemController.update);
+router.delete('/:id', checkRole('ADMIN'), itemController.delete);
 
 module.exports = router;

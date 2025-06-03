@@ -2,6 +2,7 @@ const  bcrypt=require('bcrypt')
 const jwt=require('jsonwebtoken')
 const ApiError=require ('../api/apiError');
 const {User,Cart}=require('../models/models')
+
 require('dotenv').config();
 
 
@@ -51,7 +52,7 @@ class UserController {
     }
 
     async check(req, res, next) {
-        const token = generateJwt(req.user.id, req.user.email, req.user.role)
+        const token = generateJWT(req.user.id, req.user.email, req.user.role)
         return res.json({token})
     }
 }
