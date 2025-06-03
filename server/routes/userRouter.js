@@ -2,13 +2,8 @@ const { Router } = require('express');
 const userController = require('../controllers/userController')
 const router = Router();
 
-router.post('/registration', (req, res) => {
-  res.json({ message: 'Registration' });
-});
-
-router.post('/login', (req, res) => {
-  res.json({ message: 'Login' });
-});
+router.post('/registration', userController.registration);
+router.post('/login',userController.login);
 
 router.get('/auth',userController.check);
 
