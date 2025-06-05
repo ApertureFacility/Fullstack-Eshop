@@ -1,7 +1,7 @@
-import { ADMIN_ROUTE, CART_ROUTE, ITEM_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "./utils/constants";
+import { ADMIN_ROUTE, CART_ROUTE, HOME_ROUTE, ITEM_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "./utils/constants";
 import Admin from "./pages/AdminPanel";
 import Cart from "./pages/Сart";
-import Shop from "./pages/Shop";
+import MainPage from "./pages/Shop";
 import Auth from "./pages/Auth";
 import Item from "./pages/Item";
 
@@ -19,7 +19,7 @@ export const authRoutes = [
 export const publicRoutes = [
   {
     path: SHOP_ROUTE,
-    Component: Shop
+    Component: MainPage
   },
   {
     path: LOGIN_ROUTE,
@@ -32,5 +32,9 @@ export const publicRoutes = [
   {
     path: ITEM_ROUTE + '/:id',
     Component: Item
+  },
+  {
+    path:HOME_ROUTE,
+    Component: MainPage
   },
 ];

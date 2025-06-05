@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { authRoutes, publicRoutes } from '../routes';
-import { SHOP_ROUTE } from './constants';
+import { HOME_ROUTE} from './constants';
 import { RootState } from '../redux/store';
 
 const AppRouter = () => {
@@ -25,7 +25,7 @@ const AppRouter = () => {
                 />
             ))}
             
-            <Route path="*" element={<Navigate to={SHOP_ROUTE} replace />} />
+            <Route path="/" element={<Navigate to={HOME_ROUTE} replace />} />
         </Routes>
     );
 };
