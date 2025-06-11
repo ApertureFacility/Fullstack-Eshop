@@ -1,0 +1,16 @@
+.logo-font {
+  font-family: serif;
+}
+
+.badge {
+  position: absolute;
+  top: -5px;
+  right: -8px;
+  background-color: red;
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 5px;
+  border-radius: 50%;
+}
+
+
