@@ -6,36 +6,39 @@ const path = require('path')
 class ItemController {
     async create(req, res, next) {
         try {
-            const { 
-                name, 
-                price, 
+            const {
+                name,
+                price,
                 brandId,
-                ['rating ']: ratingWithSpace,
-                typeId, 
-                ['stock_quantity\t']: stockQuantity, 
-                discount_price, 
-                ['info ']: infoRaw
+                rating,
+                typeId,
+                stock_quantity,
+                discount_price,
+                info
             } = req.body;
+
             const file = req.file;
-    
+
             if (!file) {
-                throw ApiError.badRequest('Файл не был загружен');
+                return next(ApiError.badRequest('Файл не был загружен'));
             }
-    
+
             const item = await Item.create({
                 name,
                 price,
                 brandId,
                 typeId,
-                rating:ratingWithSpace || 0, 
+                rating: rating || 0,
                 img: file.filename,
-                stock_quantity: stockQuantity,
+                stock_quantity,
                 discount_price,
-                info: infoRaw ? JSON.parse(infoRaw.trim()) : null
+                info: info ? JSON.parse(info.trim()) : null
             });
-            res.json(item);
+
+            return res.json(item);
         } catch (e) {
-            next(ApiError.badRequest(e.message));
+            console.error('Ошибка при создании товара:', e);
+            return next(ApiError.badRequest(e.message));
         }
     }
 

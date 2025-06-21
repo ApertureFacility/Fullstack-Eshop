@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 
-router.post('/', checkRole('ADMIN'), upload.single('img'), itemController.create);
+router.post('/', upload.single('img'), itemController.create);
 router.get('/', itemController.getAll);
 router.get('/:id', itemController.getOne);
 router.put('/:id', checkRole('ADMIN'), itemController.update);
