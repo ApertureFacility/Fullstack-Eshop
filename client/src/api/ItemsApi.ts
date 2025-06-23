@@ -1,11 +1,15 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:7000/api';
+const API_URL = process.env.REACT_APP_API_URL;
 
 
 
 export const getallItemsReq = async () => {
   const response = await axios.get(`${API_URL}/item`); 
-  console.log('API URL:', process.env.REACT_APP_API_URL);
+  return response.data;
+};
+
+export const getOneItemReq = async (id: string) => {
+  const response = await axios.get(`${API_URL}/item/${id}`);
   return response.data;
 };
