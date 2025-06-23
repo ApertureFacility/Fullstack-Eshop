@@ -25,7 +25,8 @@ const Item = sequelize.define('Item', {
     rating: {type: DataTypes.INTEGER, defaultValue: 0},
     img: {type: DataTypes.STRING, allowNull: false},
     stock_quantity: {type: DataTypes.INTEGER,allowNull: false,defaultValue: 0,validate: {min: 0}},
-    discount_price: {type: DataTypes.DECIMAL(10, 2),allowNull: true,validate: {min: 0}}
+    discount_price: {type: DataTypes.DECIMAL(10, 2),allowNull: true,validate: {min: 0}},
+    description: { type: DataTypes.TEXT, allowNull: true }
 })
 
 const Type = sequelize.define('type', {
@@ -75,8 +76,11 @@ Rating.belongsTo(Item)
 Item.hasMany(CartItem)
 CartItem.belongsTo(Item)
 
-Item.hasMany(ItemInfo, {as: 'info'});
-ItemInfo.belongsTo(Item)
+Item.hasMany(ItemInfo, { as: 'info', foreignKey: 'ItemId' });
+
+
+ItemInfo.belongsTo(Item, { foreignKey: 'ItemId' });
+
 
 Type.belongsToMany(Brand, {through: TypeBrand })
 Brand.belongsToMany(Type, {through: TypeBrand })
