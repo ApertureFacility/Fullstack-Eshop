@@ -3,6 +3,8 @@ import { getallItemsReq } from '../../api/ItemsApi';
 import './ItemsBlock.css';
 import { Spinner } from 'react-bootstrap';
 import { ReactComponent as LikeIcon } from '../../static/like.svg';
+import { useNavigate } from 'react-router-dom';
+
 
 interface Item {
   id: number;
@@ -22,6 +24,12 @@ const ItemsList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const navigate = useNavigate();
+
+  const handleItemClick = (id: number) => {
+    navigate(`/item/${id}`);
+  };
+  
   useEffect(() => {
     const fetchItems = async () => {
       try {
@@ -51,6 +59,12 @@ const ItemsList = () => {
             : 0;
 
           return (
+            <div 
+            key={item.id} 
+            className="items-list__card"
+            onClick={() => handleItemClick(item.id)}
+            style={{ cursor: 'pointer' }}
+          >
             <div key={item.id} className="items-list__card">
               <button className="items-list__like-button" aria-label="Add item to favorite" >
                 <LikeIcon className='items-list__like-button'/>
@@ -94,6 +108,7 @@ const ItemsList = () => {
                   >
                     {item.stock_quantity > 0 ? 'В наличии' : 'Нет в наличии'}
                   </span>
+                </div>
                 </div>
               </div>
             </div>
