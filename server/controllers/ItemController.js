@@ -1,4 +1,4 @@
-const {Item,ItemInfo} = require('../models/models')
+const {Item,ItemInfo,Type,Brand} = require('../models/models')
 const ApiError = require('../api/apiError')
 const uuid = require('uuid')
 const path = require('path')
@@ -53,20 +53,23 @@ class ItemController {
 
     async getOne(req, res, next) {
         try {
-          const { id } = req.params;
-          const item = await Item.findOne({
-            where: { id },
-            include: [{ model: ItemInfo, as: 'info' }],  
-          });
-          if (!item) {
-            return next(ApiError.notFound('Item not found'));
-          }
-          return res.json(item);
+            const { id } = req.params;
+            const item = await Item.findOne({
+                where: { id },
+                include: [
+                    { model: ItemInfo, as: 'info' },
+                    { model: Type },                
+                    { model: Brand }               
+                ],
+            });
+            if (!item) {
+                return next(ApiError.notFound('Item not found'));
+            }
+            return res.json(item);
         } catch (e) {
-          return next(ApiError.internal(e.message));
+            return next(ApiError.internal(e.message));
         }
-      }
-      
+    }
 
     async update(req, res, next) {
         try {
