@@ -4,12 +4,28 @@ const path =require('path')
 const port = process.env.PORT
 const app=express()
 const sequelize=require('./db')
-const models=require('./models/models.js')
 const cors=require('cors')
 const { json } = require('sequelize')
 const router=require('./routes/index.js')
 const ErrorHandler=require('./api/middleware/HandlingMiddleware.js')
 
+const expressSwagger = require('express-swagger-generator')(app); 
+
+expressSwagger({
+  swaggerDefinition: {
+    info: {
+      title: 'My API',
+      version: '1.0.0',
+      description: 'Документация API'
+    },
+    host: `localhost:${port}`,
+    basePath: '/', 
+    produces: ['application/json'],
+    schemes: ['http']
+  },
+  basedir: __dirname,
+  files: ['./routes/**/*.js'] 
+});
 app.use(cors())
 app.use(express.json())
 app.use(express.static(path.resolve(__dirname,'static')))
