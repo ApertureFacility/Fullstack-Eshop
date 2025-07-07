@@ -35,7 +35,7 @@ router.get('/:id', brandController.getOne);
  * @returns {object} 200 - Успешное обновление бренда
  * @security JWT
  */
-router.put('/:id', checkRole('ADMIN'), brandController.update);
+router.put('/:id', brandController.update);
 
 /**
  * @route DELETE /api/brand/{id}
@@ -44,6 +44,6 @@ router.put('/:id', checkRole('ADMIN'), brandController.update);
  * @returns {object} 200 - Успешное удаление бренда
  * @security JWT
  */
-router.delete('/:id', checkRole('ADMIN'), brandController.delete);
+router.delete('/:id', brandController.delete);
 
 module.exports = router;

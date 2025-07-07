@@ -12,7 +12,7 @@ const router = Router();
  * @returns {object} 200 - Успешно созданный тип инструмента
  * @security JWT
  */
-router.post('/',checkRole('ADMIN'), TypeController.create);
+router.post('/', TypeController.create);
 
 /**
  * @route GET /api/type
@@ -37,7 +37,7 @@ router.get('/:id', TypeController.getOne);
  * @returns {object} 200 - Успешно обновлённый тип инструмента
  * @security JWT
  */
-router.put('/:id',checkRole('ADMIN'), TypeController.update);
+router.put('/:id', TypeController.update);
 
 /**
  * @route DELETE /api/type/{id}
@@ -46,7 +46,7 @@ router.put('/:id',checkRole('ADMIN'), TypeController.update);
  * @returns {object} 200 - Успешно удалённый тип инструмента
  * @security JWT
  */
-router.delete('/:id',checkRole('ADMIN'), TypeController.delete);
+router.delete('/:id', TypeController.delete);
 
 
 module.exports = router;

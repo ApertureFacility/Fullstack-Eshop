@@ -14,9 +14,9 @@ const expressSwagger = require('express-swagger-generator')(app);
 expressSwagger({
   swaggerDefinition: {
     info: {
-      title: 'My API',
+      title: 'BestTools API',
       version: '1.0.0',
-      description: 'Документация API'
+      description: 'Документация API для BestTools'
     },
     host: `localhost:${port}`,
     basePath: '/', 
